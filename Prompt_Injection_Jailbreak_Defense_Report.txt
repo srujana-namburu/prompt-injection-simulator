@@ -68,10 +68,44 @@ Proposed Defense Mechanisms:
 
 Safe Mode Implementation
 
-- Safe Mode scans all user inputs for risky keywords before querying the model.
-- If risky patterns are detected, the prompt is blocked and not sent to the model.
-- This prevents obvious injection attempts from reaching the model, reducing risk.
-- Safe Mode keywords include "ignore", "bypass", "forget", "disregard", "override".
-- This layer acts as a first line of defense complementing system prompt hardening.
+How Safe Mode Works
+Safe Mode is a proactive input filtering layer that checks user prompts before sending them to the language model. Its main goal is to detect and block potentially dangerous or risky inputs that try to bypass the system prompt or perform prompt injection/jailbreak attacks.
+
+Key points about Safe Mode:
+Keyword-Based Detection
+Safe Mode scans the user's input for specific risky keywords or phrases such as:
+
+"ignore"
+
+"bypass"
+
+"forget"
+
+"disregard"
+
+"override"
+
+Pattern Matching
+If the input contains any of these keywords (case-insensitive), Safe Mode flags the prompt as suspicious.
+
+Blocking Suspicious Inputs
+When a risky pattern is detected, Safe Mode prevents the prompt from being sent to the language model. Instead, it returns a warning or refusal message like:
+
+"Input blocked by Safe Mode due to risky content."
+
+Preventing Attacks Early
+By catching these attempts before they reach the model, Safe Mode reduces the chances of prompt injection or jailbreaks succeeding.
+
+Complement to System Prompt Hardening
+Safe Mode acts as a first line of defense alongside strict system prompt instructions. Even if a prompt tries to bypass system rules, Safe Mode can intercept and block it upfront.
+
+Why Safe Mode is Important
+Many prompt injection/jailbreak attacks rely on keywords that instruct the model to "ignore" or "bypass" its rules.
+
+Catching these keywords early prevents the model from even seeing these harmful instructions.
+
+It helps maintain model integrity and sensitive data security.
+
+
 
 
